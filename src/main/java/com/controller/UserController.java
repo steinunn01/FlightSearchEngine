@@ -1,7 +1,7 @@
-package main.java.controller;
+main.java.com.controller;
 
-import main.java.model.User;
-import main.java.model.UserView;
+import main.java.com.model.User;
+import main.java.com.model.UserView;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package test.java.controller;
+package test.java.com.controller;
 
-import main.java.controller.UserController;
-import main.java.model.User;
-import main.java.view.UserView;
+import main.java.com.controller.UserController;
+import main.java.com.model.User;
+import main.java.com.view.UserView;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

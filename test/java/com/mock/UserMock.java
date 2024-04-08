@@ -1,8 +1,8 @@
-package test.java.mock;
+package test.java.com.mock;
 
-import main.java.controller.UserController;
-import main.java.model.User;
-import main.java.view.UserView;
+import main.java.com.controller.UserController;
+import main.java.model.com.User;
+import main.java.com.view.UserView;
 
 import java.util.ArrayList;
 import java.util.List;
