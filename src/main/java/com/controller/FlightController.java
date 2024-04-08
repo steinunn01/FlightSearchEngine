@@ -1,4 +1,4 @@
-main.java.com.controller;
+package main.java.com.controller;
 
 public class FlightController{
 }

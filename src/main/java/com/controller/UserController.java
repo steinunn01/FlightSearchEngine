@@ -1,4 +1,4 @@
-main.java.com.controller;
+package main.java.com.controller;
 
 import main.java.com.model.User;
 import main.java.com.model.UserView;
