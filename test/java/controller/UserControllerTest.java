@@ -2,7 +2,7 @@ package test.java.controller;
 
 import main.java.controller.UserController;
 import main.java.model.User;
-import main.java.model.UserView;
+import main.java.view.UserView;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

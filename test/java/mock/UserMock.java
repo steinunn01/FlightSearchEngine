@@ -1,13 +1,13 @@
-package main.java.demo;
+package test.java.mock;
 
 import main.java.controller.UserController;
 import main.java.model.User;
-import main.java.model.UserView;
+import main.java.view.UserView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDemo {
+public class UserMock {
     public static void main(String[] args) {
         List<User> users = getUsersfromDB();
         UserView userView = new UserView();

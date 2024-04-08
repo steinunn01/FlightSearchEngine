@@ -1,4 +1,4 @@
-package main.java.model;
+package main.java.view;
 
 import java.util.List;
 
