@@ -7,6 +7,8 @@ import java.util.List;
 
 public class UserController {
     private List<User> users;
+
+    //Þarf að takka þetta út.
     private UserView userView;
 
     public UserController(List<User> users, UserView userView) {
