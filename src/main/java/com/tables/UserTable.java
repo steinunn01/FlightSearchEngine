@@ -1,4 +1,4 @@
-package main.java.com.data;
+package main.java.com.tables;
 
 public class UserTable{
 }

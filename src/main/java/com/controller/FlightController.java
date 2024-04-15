@@ -1,15 +1,14 @@
 package main.java.com.controller;
 
 import main.java.com.model.*;
-import test.java.com.mock.FilgthTableMock;
+import main.java.com.tables.*;
 
 public class FlightController{
     private Flight[] filghts;
-    private FilgthTableMock db;
+    private FlightTable db;
 
     public FlightController(){
-	    db = new FilgthTableMock();
-	    filghts = setFlights;
+	    filghts = db.getFlight();
     }
 
     public void setFlights(){
