@@ -6,13 +6,21 @@ public class Flight{
     private String departure;
     private String arrivalLocation;
     private String arrival;
-    private int seatPrice;
     private String status;
 
+    public Flight(Airplane airp, String dL, String d, String aL, String a, String sta){
+	airplane = airp;
+	derpartureLocation = dL;
+	departure = d;
+	arrivalLocation = aL;
+	arrival = a;
+	status = sta;
+    }
+    
     //Use : getSeats();
     //pre : nothing.
     //post: returns a matrix of Seat.
-    public Seat[] getSeats(){
+    public Seat[][] getSeats(){
 	return airplane.getSeats();
     }
 
