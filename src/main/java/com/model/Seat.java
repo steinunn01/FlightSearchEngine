@@ -9,34 +9,34 @@ public class Seat{
     private boolean available;
 
     public Seat(int r, char c, int pice){
-	ROW = r;
-	COL = c;
-	seatPrice = pice;
-	availble = true;
+	    ROW = r;
+	    COL = c;
+	    seatPrice = pice;
+	    available = true;
     }
 
-    public Map<int, char> getSeatID(){
-	Map seatID = new Map<int, char>;
-	seatID.add(ROW, COL);
-	return seatID;
+    public Map<Integer, Character> getSeatID(){
+	    Map<Integer, Character> seatID = new HashMap<Integer, Character>();
+	    seatID.put(ROW, COL);
+	    return seatID;
     }
 
     public boolean isAvailble(){
-	return available;
+	    return available;
     }
 
     public void changeAvali(){
-	if(availble)
-	    availble = false;
-	else
-	    availble = true;
+	    if(available)
+            available = false;
+	    else
+            available = true;
     }
 
     public int getSeatPrice(){
-	return seatPrice;
+	    return seatPrice;
     }
 
-    public void chengeSeatP(int price){
-	seatPrice = price;
+    public void setPirce(int price){
+	    seatPrice = price;
     }
 }

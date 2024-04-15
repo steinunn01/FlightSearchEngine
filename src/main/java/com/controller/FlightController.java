@@ -8,26 +8,26 @@ public class FlightController{
     private FilgthTableMock db;
 
     public FlightController(){
-	db = new FilgthTableMock();
-	filghts = setFlights;
+	    db = new FilgthTableMock();
+	    filghts = setFlights;
     }
 
     public void setFlights(){
-	this.filghts = db.getFlights();
+	    this.filghts = db.getFlights();
     }
 
     public Flight[] getFlight(){
-	return filghts;
+	    return filghts;
     }
 
-    public void addFlight(Fligth f){
-	db.add(f);
-	setFlights();
+    public void addFlight(Flight f){
+	    db.add(f);
+	    setFlights();
     }
 
-    public void delFlight(Fligth f){
+    public void delFlight(Flight f){
         db.del(f);
-	setFlights();
+	    setFlights();
     }
 
     public Flight findFligt(Flight f){

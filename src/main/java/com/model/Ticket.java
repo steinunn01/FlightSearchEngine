@@ -12,7 +12,7 @@ public class Ticket {
     }
 
     public void addBag(){
-	baggage++;
+	    baggage++;
     }
 
     public void bookSeat(){
@@ -24,7 +24,7 @@ public class Ticket {
     //post: retures the String value of
     //	    ticketNum.
     public String getTickerNumber(){
-	return ticketNum;
+	    return ticketNum;
     }
 
     //use : getFlight();
@@ -32,7 +32,7 @@ public class Ticket {
     //post: retures the Flight object
     //	    fligth.
     public Flight getFlight(){
-	return fligth;
+	    return flight;
     }
 
     //use : getUser();
@@ -40,6 +40,6 @@ public class Ticket {
     //post: retures the User object
     //	    user.
     public User getUser(){
-	return user;
+	    return user;
     }
 }

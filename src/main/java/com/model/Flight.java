@@ -2,9 +2,9 @@ package main.java.com.model;
 
 public class Flight{
     private Airplane airplane;
-    private String derpartureLocation;
+    private final String derpartureLocation;
     private String departure;
-    private String arrivalLocation;
+    private final String arrivalLocation;
     private String arrival;
     private String status;
 
@@ -28,8 +28,8 @@ public class Flight{
     //pre : nothing.
     //post: returns the Sting value for
     //      airplaneId.
-    public Sting getAirplaneID(){
-	return airplane.getID();
+    public Airplane getAirplane(){
+	    return airplane;
     }
 
     //Use : getDepartureLoc();
@@ -40,12 +40,16 @@ public class Flight{
 	return derpartureLocation;
     }
 
+    public void setDepartureDate(String date){
+	    departure = date;
+    }
+    
     //Use : getDepartureDate();
     //pre : nothing.
     //post: returns the Sting value for
     //      derparture.
     public String getDepartureDate(){
-	return derparture;
+	    return departure;
     }
 
     //Use : getArrivalLoc();
@@ -53,15 +57,19 @@ public class Flight{
     //post: returns the Sting value for
     //      arrivalLocation.
     public String getArrivalLoc(){
-	return arrivalLocation;
+	    return arrivalLocation;
     }
 
+    public void setArrivalTime(String time){
+	    arrival = time;
+    }
+    
     //Use : getArrivalTime();
     //pre : nothing.
     //post: returns the Sting value for
     //      arrival.
     public String getArrivalTime(){
-	return arrival;
+	    return arrival;
     }
 
     //Use : getStatus();
@@ -69,6 +77,6 @@ public class Flight{
     //post: returns the Sting value for
     //      status.
     public String getStatus(){
-	return status;
+	    return status;
     }
 }
