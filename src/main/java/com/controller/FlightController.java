@@ -2,16 +2,17 @@ package main.java.com.controller;
 
 import main.java.com.model.*;
 import main.java.com.tables.*;
+import java.sql.*;
 
 public class FlightController{
     private Flight[] filghts;
     private FlightTable db;
 
-    public FlightController(){
-	    filghts = db.getFlight();
+    public FlightController() throws Exception {
+	    setFlights();
     }
 
-    public void setFlights(){
+    public void setFlights() throws Exception{
 	    this.filghts = db.getFlights();
     }
 

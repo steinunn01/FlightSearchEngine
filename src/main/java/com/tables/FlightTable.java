@@ -26,7 +26,7 @@ public class FlightTable{
 	}
     }
 
-    public Flight[] getFligth() throws SQLException, Exception{
+    public Flight[] getFlights() throws SQLException, Exception{
 	getConn();
 	Statement s = conn.createStatement();
 	
