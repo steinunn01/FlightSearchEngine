@@ -33,7 +33,7 @@ public class FlightTable{
 	
 	String stmt1 = "SELECT * FROM Flight;";
 	ResultSet r = s.executeQuery(stmt1);
-	stmt1 =  "SELCET c, r, price FORM Seat WHERE airplenaID = ? and depart = ? and departTime = ?";
+	stmt1 =  "SELCET c, r, price, avilable FORM Seat WHERE airplenaID = ? and depart = ? and departTime = ?";
 
 	Flight[] ret = new Flight[2];
 	int l = 2;
@@ -80,7 +80,8 @@ public class FlightTable{
 	    	int row = r2.getInt(1);
 	    	char col = r2.getString(2).charAt(0);
 	    	int price = r2.getInt(3);
-	    	seats[j] = new Seat(row, col, price);
+			boolean avilable = r2.getBoolean(4);
+	    	seats[j] = new Seat(row, col, price, avilable);
 
 	    	j++;
 	    	r2.next();
@@ -270,7 +271,65 @@ public class FlightTable{
 		}
 	}
 
-    public Flight find(String id, String date, String time){
-	getConn();
+    public Flight find(String id, String date, String time) throws Exception{
+		getConn(null);
+		Flight ret = null;
+		String stmt1 = "SELECT airline FROM Airplane WHERE airplaneID = ?";
+		PreparedStatement p = conn.prepareStatement(stmt1);
+
+		p.setString(1, id);
+
+		ResultSet r = p.executeQuery();
+		p.clearParameters();
+
+		if(r != null){
+			String airline = r.getString(1);
+				
+			Seat[] seats = new Seat[2];
+			int l = 2;
+
+			stmt1 = "SELECT r, c, price, avilable FROM Seat WHERE airplaneID = ?, depart = ?, departTime = ?";
+			p = conn.prepareStatement(stmt1);
+			
+			p.setString(1, id);
+			p.setString(2,date);
+			p.setString(3,time);
+			
+			r = p.executeQuery();
+			p.clearParameters();
+
+			int i = 0;
+			while (r != null) {
+				if(l >= i){
+					l *= 2;
+					fixSize(seats, l);
+				}
+
+				int row = r.getInt(1);
+				char col = r.getString(2).charAt(0);
+				int price = r.getInt(3);
+				boolean avilable = r.getBoolean(4);
+
+				seats[i] = new Seat(row, col, price, avilable);
+			}
+
+			Airplane airplane = new Airplane(id, airline, seats);
+
+			stmt1 = "SELECT departLoc, arrival, arrivalLoc, status FROM Flight WHERE airplaneID = ? and depart = ? and departTime = ?";
+			p = conn.prepareStatement(stmt1);
+
+			p.setString(1, id);
+			p.setString(2,date);
+			p.setString(3,time);
+
+			r = p.executeQuery();
+			p.clearParameters();
+
+			ret = new Flight(airplane, r.getString(1), date, time, r.getString(3), r.getString(2), r.getString(4));
+		}
+		
+		conn.close();
+		return ret;
+	}
 	
 }

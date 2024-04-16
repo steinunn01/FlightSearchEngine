@@ -2,7 +2,6 @@ package main.java.com.controller;
 
 import main.java.com.model.*;
 import main.java.com.tables.*;
-import java.sql.*;
 
 public class FlightController{
     private Flight[] filghts;
@@ -30,7 +29,7 @@ public class FlightController{
 	    setFlights();
     }
 
-    public Flight findFligt(String id, String depart, String departT){
+    public Flight findFligt(String id, String depart, String departT) throws Exception{
         return db.find(id, depart, departT);
     }
 
