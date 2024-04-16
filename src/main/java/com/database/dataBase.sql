@@ -14,9 +14,7 @@ Create TABLE Users(
 
 Create TABLE Airplane(
 	id VARCHAR(6) PRIMARY KEY,
-	airline VARCHAR(14),
-	r int,
-	c int
+	airline VARCHAR(14)
 );
 
 Create TABLE Seat(
@@ -54,7 +52,7 @@ CREATE TABLE Ticked(
 INSERT INTO Users VALUES
 	('160980-2309', 'Jón' , 'Jóhansson', 'Jón@email.com', '1234');
 
-INSERT INTO Airplane (id, airline) VALUES ('FN-757', 'deta', 14, 4), ('FN-755', 'beta', 7, 3);
+INSERT INTO Airplane (id, airline) VALUES ('FN-757', 'deta'), ('FN-755', 'beta');
 
 INSERT INTO Seat VALUES 
 	(1, 'A', 20000, TRUE, 'FN-757', '2024-08-15', '08:30:00'),
@@ -378,6 +376,3 @@ INSERT INTO Flight VALUES
 	('FN-755', 'Akureyri', '2024-08-15', '11:30:00', 'Reykjavik', '12:30:00', 'on Time'),
 	('FN-755', 'Reykjavik', '2024-08-15', '14:30:00', 'Akureyri', '15:30:00', 'on Time'),
 	('FN-755', 'Akureyri', '2024-08-15', '17:30:00', 'Reykjavik', '18:30:00', 'on Time');
-
-
-SELECT r, c FROM Airplane WHERE id = ?

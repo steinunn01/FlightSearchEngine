@@ -6,11 +6,11 @@ public class Seat{
     private int seatPrice;
     private boolean available;
 
-    public Seat(int r, char c, int pice){
+    public Seat(int r, char c, int pice, boolean b){
 	    ROW = r;
 	    COL = c;
 	    seatPrice = pice;
-	    available = true;
+	    available = b;
     }
 
     public int getROW(){
