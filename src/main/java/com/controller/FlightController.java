@@ -30,7 +30,7 @@ public class FlightController{
 	    setFlights();
     }
 
-    public Flight findFligt(String id, String depart, String departT){
+    public Flight findFligt(String id, String depart, String departT) throws Exception{
         return db.find(id, depart, departT);
     }
 

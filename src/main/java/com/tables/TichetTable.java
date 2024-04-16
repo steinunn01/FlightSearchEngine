@@ -27,7 +27,7 @@ public class TichetTable{
 
     public Seat[] findFreeSeats(Flight f) throws SQLException, Exception{
 		getConn(null);
-		String stmt1 = "SELCET r, c, price FORM Seat WHERE airplenaID = ? AND avlible = TRUE";
+		String stmt1 = "SELCET r, c, price, avilable FORM Seat WHERE airplenaID = ? AND avlible = TRUE";
 		PreparedStatement p = conn.prepareStatement(stmt1);
 		String id = f.getAirplane().getId();
 		p.setString(1,id);
@@ -46,7 +46,9 @@ public class TichetTable{
 	    	int row = r.getInt(1);
 	    	char col = r.getString(2).charAt(0);
 	    	int price = r.getInt(3);
-	    	seats[i] = new Seat(row, col, price);
+			boolean avilable = r.getBoolean(4);
+	    	seats[i] = new Seat(row, col, price, avilable);
+
 
 	    	i++;
 	    	r.next();
