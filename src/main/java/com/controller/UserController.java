@@ -1,17 +1,69 @@
 package main.java.com.controller;
-
+import java.io.IOException;
 import main.java.com.model.User;
 import main.java.com.model.UserView;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 import java.util.List;
 
 public class UserController {
     private List<User> users;
 
-    //Þarf að takka þetta út.
-    private UserView userView;
 
-    public UserController(List<User> users, UserView userView) {
+
+@Controller
+public class LoginController implements Initializable{
+
+	@FXML
+    private Button btnLogin;
+
+    @FXML
+    private PasswordField password;
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    private Label lblLogin;
+    
+    
+  
+	@FXML
+    private void login(ActionEvent event) throws IOException{
+    	if(userService.authenticate(getUsername(), getPassword())){
+    		    		
+    		stageManager.switchScene(FxmlView.USER);
+    		
+    	}else{
+    		lblLogin.setText("Login Failed.");
+    	}
+    }
+	
+	public String getPassword() {
+		return password.getText();
+	}
+
+	public String getUsername() {
+		return username.getText();
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+	}
+
+}
+    /*
+    //ï¿½arf aï¿½ takka ï¿½etta ï¿½t.
+   // private UserView userView;
+
+    // public UserController(List<User> users, UserView userView) {
         this.users = users;
         this.userView = userView;
     }
@@ -65,5 +117,5 @@ public class UserController {
 
     public void updateUserView(List<User> users) {
         userView.printUsers(users);
-    }
+    }*/
 }
