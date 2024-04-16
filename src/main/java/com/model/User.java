@@ -2,13 +2,17 @@ package main.java.com.model;
 
 public class User {
     private String kennitala;
-    private String nafn;
+    private String passportId;
+    private String fName;
+    private String lName;
     private String email;
     private String password;
 
-    public User (String kennitala, String nafn, String email, String password) {
+    public User (String kennitala, String passportId ,String fName, String lName, String email, String password) {
         this.kennitala = kennitala;
-        this.nafn = nafn;
+	this.passportId = passportId;
+        this.fName = fName;
+	this.lName = lName;
         this.email = email;
         this.password = password;
     }
@@ -22,12 +26,24 @@ public class User {
         this.kennitala = kennitala;
     }
 
-    public String getNafn() {
-        return nafn;
+    public String getPassportId(){
+	return passportId;
     }
 
-    public void setNafn(String nafn) {
-        this.nafn = nafn;
+    public String getFName() {
+        return fName;
+    }
+
+    public void setFName(String nafn) {
+        this.fName = nafn;
+    }
+
+    public String getLName() {
+        return lName;
+    }
+
+    public void setLName(String nafn) {
+        this.lName = nafn;
     }
 
     public String getEmail() {
@@ -38,12 +54,14 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean password(String p) {
+        return p == password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String oldPassword, String newPassword) {
+	if(password == oldPassword){
+	    this.password = newPassword;
+	}
     }
 
 }
