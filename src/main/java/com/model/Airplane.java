@@ -5,6 +5,12 @@ public class Airplane{
     private String airline;
     private Seat[] seats;
 
+    public Airplane(String airID, String airL, Seat[] seats){
+	airplaneID = airID;
+	airline = airL;
+	this.seats = seats;
+    }
+
     //Use : getAirline();
     //pre : nothing.
     //post: returns the Sting value for
@@ -25,6 +31,6 @@ public class Airplane{
     //post: returns the Sting value for
     //      airplaneID.
     public String getId(){
-	return ariplaneID;
+	    return airplaneID;
     }
 }

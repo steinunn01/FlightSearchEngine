@@ -2,13 +2,23 @@ package main.java.com.model;
 
 public class Flight{
     private Airplane airplane;
-    private String derpartureLocation;
+    private final String derpartureLocation;
     private String departure;
-    private String arrivalLocation;
+    private String departureTime;
+    private final String arrivalLocation;
     private String arrival;
-    private int seatPrice;
     private String status;
 
+    public Flight(Airplane airp, String dL, String d, String dt, String aL, String a, String sta){
+	airplane = airp;
+	derpartureLocation = dL;
+	departure = d;
+    departureTime = dt;
+	arrivalLocation = aL;
+	arrival = a;
+	status = sta;
+    }
+    
     //Use : getSeats();
     //pre : nothing.
     //post: returns a matrix of Seat.
@@ -20,8 +30,8 @@ public class Flight{
     //pre : nothing.
     //post: returns the Sting value for
     //      airplaneId.
-    public Sting getAirplaneID(){
-	return airplane.getID();
+    public Airplane getAirplane(){
+	    return airplane;
     }
 
     //Use : getDepartureLoc();
@@ -32,12 +42,24 @@ public class Flight{
 	return derpartureLocation;
     }
 
+    public void setDepartureDate(String date){
+	    departure = date;
+    }
+    
     //Use : getDepartureDate();
     //pre : nothing.
     //post: returns the Sting value for
     //      derparture.
     public String getDepartureDate(){
-	return derparture;
+	    return departure;
+    }
+
+    public void setDepartureTime(String time){
+        departureTime = time;
+    }
+
+    public String getDepartureTime(){
+        return departureTime;
     }
 
     //Use : getArrivalLoc();
@@ -45,15 +67,19 @@ public class Flight{
     //post: returns the Sting value for
     //      arrivalLocation.
     public String getArrivalLoc(){
-	return arrivalLocation;
+	    return arrivalLocation;
     }
 
+    public void setArrivalTime(String time){
+	    arrival = time;
+    }
+    
     //Use : getArrivalTime();
     //pre : nothing.
     //post: returns the Sting value for
     //      arrival.
     public String getArrivalTime(){
-	return arrival;
+	    return arrival;
     }
 
     //Use : getStatus();
@@ -61,6 +87,6 @@ public class Flight{
     //post: returns the Sting value for
     //      status.
     public String getStatus(){
-	return status;
+	    return status;
     }
 }
