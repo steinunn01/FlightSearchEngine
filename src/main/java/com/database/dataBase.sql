@@ -5,9 +5,10 @@ DROP TABLE IF EXISTS Seat;
 DROP TABLE IF EXISTS Ticked;
 
 Create TABLE Users(
-	ID VARCHAR(255) PRIMARY KEY,
-	FName VARCHAR(255),
-	LName VARCHAR(255),
+	ID VARCHAR(11) PRIMARY KEY,
+	FName VARCHAR(25),
+	LName VARCHAR(25),
+	email CHAR,
 	Pasword VARCHAR(255)
 );
 
@@ -39,8 +40,20 @@ CREATE TABLE Flight(
 	PRIMARY KEY(airplaneID,depart,departTime)
 );
 
+CREATE TABLE Ticked(
+	userID VARCHAR(11) REFERENCES Users(ID),
+	airplaneID VARCHAR(6),
+	depart DATE,
+	departTime Time,
+	PRIMARY KEY(userID, airplaneID, depart, departTime),
+	FOREIGN KEY(airplaneID, depart, departTime) REFERENCES Flight(airplaneID, depart, departTime)
+);
+
+INSERT INTO Users VALUES
+	('160980-2309', 'Jón' , 'Jóhansson', 'Jón@email.com', '1234');
+
 INSERT INTO Airplane (id, airline) VALUES ('FN-757', 'deta'), ('FN-755', 'beta');
-		
+
 INSERT INTO Seat VALUES 
 	(1, 'A', 20000, TRUE, 'FN-757', '2024-08-15', '08:30:00'),
 	(1, 'B', 20000, TRUE, 'FN-757', '2024-08-15', '08:30:00'),
@@ -363,4 +376,3 @@ INSERT INTO Flight VALUES
 	('FN-755', 'Akureyri', '2024-08-15', '11:30:00', 'Reykjavik', '12:30:00', 'on Time'),
 	('FN-755', 'Reykjavik', '2024-08-15', '14:30:00', 'Akureyri', '15:30:00', 'on Time'),
 	('FN-755', 'Akureyri', '2024-08-15', '17:30:00', 'Reykjavik', '18:30:00', 'on Time');
-	
