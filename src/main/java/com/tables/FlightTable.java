@@ -1,13 +1,14 @@
 package main.java.com.tables;
 
 import main.java.com.model.*;
-import java.util.*;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;  
 
 public class FlightTable{
     private Connection conn;
 
-    private void getConn() throws Exception{
+    private void getConn(String args[]) throws Exception{
 	try{
 	    Class.forName("org.postgresql.Driver");
 	    java.util.Properties props = new java.util.Properties();
@@ -27,7 +28,7 @@ public class FlightTable{
     }
 
     public Flight[] getFlights() throws SQLException, Exception{
-	getConn();
+	getConn(null);
 	Statement s = conn.createStatement();
 	
 	String stmt1 = "SELECT * FROM Flight;";
@@ -44,22 +45,25 @@ public class FlightTable{
 		ret = fixSize(ret, l);
 	    }
 	    
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		
+		DateFormat dateFormat2 = new SimpleDateFormat("hh:mm");
+
 	    String id = r.getString(1);
 	    String de = r.getString(2);
-	    Date ded = r.getDate(3);
-	    Time det = r.getTime(4);
+	    String ded = dateFormat.format(r.getDate(3));
+	    String det = dateFormat2.format(r.getTime(4));
 	    String arri = r.getString(5);
-	    Time arrit = r.getTime(6);
+	    String arrit =  dateFormat2.format(r.getTime(6));
 	    String sat = r.getString(7);
 
-	    String Stmt2 = "SELECT airline FROM Airplane WHERE id = "+ id;
 	    ResultSet r2 = s.executeQuery(stmt1);
 	    String airline = r2.getString(1);
 
 	    PreparedStatement p = conn.prepareStatement(stmt1);
 	    p.setString(1,id);
-	    p.setDate(2, ded);
-	    p.setTime(3, det);
+	    p.setString(2, ded);
+	    p.setString(3, det);
 
 	    r2 = p.executeQuery();
 
@@ -73,9 +77,9 @@ public class FlightTable{
 		    seats = fixSize(seats, l);
 	    	}
 
-	    	int row = r.getInt(1);
-	    	char col = r.getString(2).charAt(0);
-	    	int price = r.getInt(3);
+	    	int row = r2.getInt(1);
+	    	char col = r2.getString(2).charAt(0);
+	    	int price = r2.getInt(3);
 	    	seats[j] = new Seat(row, col, price);
 
 	    	j++;
@@ -91,6 +95,7 @@ public class FlightTable{
 
 	    ret[i] = new Flight(airp, de, ded, det, arri, arrit, sat);
 
+	    p.clearParameters();
 	    i++;
 	    r.next();
 	}
@@ -98,6 +103,7 @@ public class FlightTable{
 	if(i != l){
 	    ret = fixSize(ret, i);
 	}
+	conn.close();
 	return ret;
     }
 
@@ -132,4 +138,139 @@ public class FlightTable{
 	}
 	return ret;
     }
+
+    public void add(Flight f)throws Exception{
+	getConn(null);
+	String stmt1 = "SELECT airplaneID, depart, departTime From Flight where airplaneID = ? and depart = ? and departTime = ?";
+	PreparedStatement p = conn.prepareStatement(stmt1);
+
+	String id = f.getAirplane().getId();
+	String date = f.getDepartureDate();
+	String time = f.getDepartureDate();
+
+	p.setString(1, id);
+	p.setString(2, date);
+	p.setString(3, time);
+
+	ResultSet r = p.executeQuery();
+	p.clearParameters();
+
+	if(r == null){
+	    stmt1 = "SELECT * FROM Airplane WHERE id = ?";
+	    p = conn.prepareStatement(stmt1);
+	    p.setString(1, id);
+
+	    r = p.executeQuery();
+	    p.clearParameters();
+
+	    if(r != null){
+		Airplane air = f.getAirplane();
+		Seat[] seats = air.getSeats();
+		int l = seats.length;
+
+		stmt1 = "INSERT INTO Seat value (?, ?, ?, True, ?, ?, ?)";
+		p = conn.prepareStatement(stmt1);
+
+		for(int i = 0; i < l; i++){
+		    p.setInt(1, seats[i].getROW());
+		    p.setString(2, String.valueOf(seats[i].getCOL()));
+		    p.setInt(3, seats[i].getSeatPrice());
+		    p.setString(4, id);
+		    p.setString(5, date);
+		    p.setString(6, time);
+
+		    p.executeUpdate();
+		    p.clearParameters();
+		}
+
+		stmt1 = "INSERT INTO Flight value (?, ?, ?, ?, ?, ? ,?)";
+		p = conn.prepareStatement(stmt1);
+		p.setString(1,id);
+		p.setString(2,f.getDepartureLoc());
+		p.setString(3, date);
+		p.setString(4, time);
+		p.setString(5, f.getArrivalLoc());
+		p.setString(6, f.getArrivalTime());
+		p.setString(7, f.getStatus());
+
+		p.executeUpdate();
+		p.clearParameters();
+	    }
+	}
+	conn.close();
+    }
+	
+	public void del(Flight f)throws Exception{
+		getConn(null);
+		String stmt1 = "SELECT airplaneID, depart, departTime From Flight where airplaneID = ? and depart = ? and departTime = ?";
+		PreparedStatement p = conn.prepareStatement(stmt1);
+	
+		String id = f.getAirplane().getId();
+		String date = f.getDepartureDate();
+		String time = f.getDepartureDate();
+	
+		p.setString(1, id);
+		p.setString(2, date);
+		p.setString(3, time);
+	
+		ResultSet r = p.executeQuery();
+		p.clearParameters();
+	
+		if(r != null){
+			Airplane air = f.getAirplane();
+			Seat[] seats = air.getSeats();
+			int l = seats.length;
+	
+			stmt1 = "DELETE FROM Seat WHERE r = ? and c = ? and airplaneID = ? and depart = ? and departTime = ?";
+			p = conn.prepareStatement(stmt1);
+	
+			for(int i = 0; i < l; i++){
+				p.setInt(1, seats[i].getROW());
+				p.setString(2, String.valueOf(seats[i].getCOL()));
+				p.setString(3, id);
+				p.setString(4, date);
+				p.setString(5, time);
+	
+				p.executeUpdate();
+				p.clearParameters();
+			}
+	
+			stmt1 = "DELETE FROM Flight WHERE airplaneID = ? and depart = ? and departTime = ?";
+			p = conn.prepareStatement(stmt1);
+			p.setString(1,id);
+			p.setString(3, date);
+			p.setString(4, time);
+	
+			p.executeUpdate();
+			p.clearParameters();
+			}
+		conn.close();
+		}
+
+	public void update(Flight f, Flight nf)throws Exception{
+		getConn(null);
+		String stmt1 = "SELECT airplaneID, depart, departTime From Flight where airplaneID = ? and depart = ? and departTime = ?";
+		PreparedStatement p = conn.prepareStatement(stmt1);
+
+		String id = f.getAirplane().getId();
+		String date = f.getDepartureDate();
+		String time = f.getDepartureDate();
+	
+		p.setString(1, id);
+		p.setString(2, date);
+		p.setString(3, time);
+	
+		ResultSet r = p.executeQuery();
+		p.clearParameters();
+		conn.close();
+	
+		if(r != null){
+			del(f);
+			add(nf);
+		}
+	}
+
+    public Flight find(String id, String date, String time){
+	getConn();
+	
 }

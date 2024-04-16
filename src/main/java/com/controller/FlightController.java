@@ -20,17 +20,36 @@ public class FlightController{
 	    return filghts;
     }
 
-    public void addFlight(Flight f){
+    public void addFlight(Flight f) throws Exception{
 	    db.add(f);
 	    setFlights();
     }
 
-    public void delFlight(Flight f){
+    public void delFlight(Flight f) throws Exception{
         db.del(f);
 	    setFlights();
     }
 
-    public Flight findFligt(Flight f){
-        return db.find(f);
+    public Flight findFligt(String id, String depart, String departT){
+        return db.find(id, depart, departT);
+    }
+
+    public void update(String id, String depart, String departT, Flight nf) throws Exception{
+        Flight f = findFligt(id, depart, departT);
+        if(f != null){
+            if(nf != null){
+                db.update(f, nf);
+            }
+            else{
+                db.del(f);
+            }
+            setFlights();
+        }
+        else{
+            if(nf != null){
+                db.add(f);
+                setFlights();
+            }
+        }
     }
 }

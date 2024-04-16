@@ -4,14 +4,16 @@ public class Flight{
     private Airplane airplane;
     private final String derpartureLocation;
     private String departure;
+    private String departureTime;
     private final String arrivalLocation;
     private String arrival;
     private String status;
 
-    public Flight(Airplane airp, String dL, String d, String aL, String a, String sta){
+    public Flight(Airplane airp, String dL, String d, String dt, String aL, String a, String sta){
 	airplane = airp;
 	derpartureLocation = dL;
 	departure = d;
+    departureTime = dt;
 	arrivalLocation = aL;
 	arrival = a;
 	status = sta;
@@ -20,7 +22,7 @@ public class Flight{
     //Use : getSeats();
     //pre : nothing.
     //post: returns a matrix of Seat.
-    public Seat[][] getSeats(){
+    public Seat[] getSeats(){
 	return airplane.getSeats();
     }
 
@@ -50,6 +52,14 @@ public class Flight{
     //      derparture.
     public String getDepartureDate(){
 	    return departure;
+    }
+
+    public void setDepartureTime(String time){
+        departureTime = time;
+    }
+
+    public String getDepartureTime(){
+        return departureTime;
     }
 
     //Use : getArrivalLoc();

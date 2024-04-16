@@ -1,13 +1,12 @@
 package main.java.com.tables;
 
 import main.java.com.model.*;
-import java.util.*;
 import java.sql.*;
 
 public class TichetTable{
     private Connection conn;
 
-    private void getConn() throws Exception{
+    private void getConn(String[] args) throws Exception{
 	try{
 	    Class.forName("org.postgresql.Driver");
 	    java.util.Properties props = new java.util.Properties();
@@ -27,7 +26,7 @@ public class TichetTable{
     }
 
     public Seat[] findFreeSeats(Flight f) throws SQLException, Exception{
-		getConn();
+		getConn(null);
 		String stmt1 = "SELCET r, c, price FORM Seat WHERE airplenaID = ? AND avlible = TRUE";
 		PreparedStatement p = conn.prepareStatement(stmt1);
 		String id = f.getAirplane().getId();

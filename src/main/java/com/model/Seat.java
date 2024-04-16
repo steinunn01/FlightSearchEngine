@@ -1,7 +1,5 @@
 package main.java.com.model;
 
-import java.util.*;
-
 public class Seat{
     private final int ROW;
     private final char COL;
@@ -15,10 +13,12 @@ public class Seat{
 	    available = true;
     }
 
-    public Map<Integer, Character> getSeatID(){
-	    Map<Integer, Character> seatID = new HashMap<Integer, Character>();
-	    seatID.put(ROW, COL);
-	    return seatID;
+    public int getROW(){
+	    return ROW;
+    }
+
+    public char getCOL(){
+        return COL;
     }
 
     public boolean isAvailble(){
