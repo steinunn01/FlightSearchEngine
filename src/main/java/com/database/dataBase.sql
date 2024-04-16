@@ -5,11 +5,13 @@ DROP TABLE IF EXISTS Seat;
 DROP TABLE IF EXISTS Ticked;
 
 Create TABLE Users(
-	ID VARCHAR(11) PRIMARY KEY,
+	ID VARCHAR(11),
+	passportID VARCHAR(11),
 	FName VARCHAR(25),
 	LName VARCHAR(25),
 	email CHAR,
-	Pasword VARCHAR(255)
+	Pasword VARCHAR(255),
+	PRIMARY KEY(ID, passportID)
 );
 
 Create TABLE Airplane(
@@ -41,16 +43,20 @@ CREATE TABLE Flight(
 );
 
 CREATE TABLE Ticked(
-	userID VARCHAR(11) REFERENCES Users(ID),
+	userID VARCHAR(11),
+	passportID VARCHAR(11),
 	airplaneID VARCHAR(6),
 	depart DATE,
 	departTime Time,
-	PRIMARY KEY(userID, airplaneID, depart, departTime),
-	FOREIGN KEY(airplaneID, depart, departTime) REFERENCES Flight(airplaneID, depart, departTime)
+	id VARCHAR(17),
+	bagas int,
+	PRIMARY KEY(userID, passportID, airplaneID, depart, departTime),
+	FOREIGN KEY(airplaneID, depart, departTime) REFERENCES Flight(airplaneID, depart, departTime),
+	FOREIGN KEY(userID, passportID) REFERENCES Users(ID, passportID)
 );
 
 INSERT INTO Users VALUES
-	('160980-2309', 'Jón' , 'Jóhansson', 'Jón@email.com', '1234');
+	('160980-2309', '111111-0000', 'Jón', 'Jóhansson', 'Jón@email.com', '1234');
 
 INSERT INTO Airplane (id, airline) VALUES ('FN-757', 'deta'), ('FN-755', 'beta');
 
