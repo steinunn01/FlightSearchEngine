@@ -1,4 +1,9 @@
 package main.java.com.data;
 
-public class TichetTable{
+
+public class TicketTable{
+
+   
+    
 }
+
