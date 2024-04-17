@@ -1,33 +1,25 @@
 package main.java.com.model;
 
 public class User {
-    private String kennitala;
-    private String passportId;
+    private final String kennitala;
     private String fName;
     private String lName;
     private String email;
     private String password;
+    private Ticket[] booking;
 
-    public User (String kennitala, String passportId ,String fName, String lName, String email, String password) {
+    public User (String kennitala, String fName, String lName, String email, String password, Ticket[] booking) {
         this.kennitala = kennitala;
-	this.passportId = passportId;
         this.fName = fName;
 	this.lName = lName;
         this.email = email;
         this.password = password;
+        this.booking = booking;
     }
 
 
     public String getKennitala() {
         return kennitala;
-    }
-
-    public void setKennitala(String kennitala) {
-        this.kennitala = kennitala;
-    }
-
-    public String getPassportId(){
-	return passportId;
     }
 
     public String getFName() {
@@ -62,6 +54,14 @@ public class User {
 	if(password == oldPassword){
 	    this.password = newPassword;
 	}
+    }
+
+    public Ticket[] getBooking(){
+        return booking;
+    }
+
+    public void setBooking(Ticket[] booking){
+        this.booking = booking;
     }
 
 }

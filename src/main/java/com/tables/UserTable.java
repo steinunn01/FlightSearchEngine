@@ -1,9 +1,7 @@
 package main.java.com.tables;
 
 import main.java.com.model.*;
-import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;  
+import java.sql.*; 
 
 public class UserTable{
     private Connection conn;
@@ -32,19 +30,23 @@ public class UserTable{
 
         if(isPassword(id,pw)){
             getConn(null);
-            String stmt1 = "SELECT FName, LName, email, passportID FROM Users WHERE id = ?";
+            
+            String stmt1 = "SELECT FName, LName, email FROM Users WHERE id = ?";
             PreparedStatement p = conn.prepareStatement(stmt1);
 
             p.setString(1, id);
             ResultSet r = p.executeQuery();
+            p.clearParameters();
             conn.close();
-
+            
             String fName = r.getString(1);
             String lName = r.getString(2);
             String email = r.getString(3);
-            String passportID = r.getString(4);
 
-            ret = new User(id, passportID, fName, lName, email, pw);
+            TichetTable temp = new TichetTable();
+            Ticket[] booking = temp.findAllBooking(id);
+           
+            ret = new User(id, fName, lName, email, pw, booking);
         }
 
         return ret;
@@ -53,15 +55,14 @@ public class UserTable{
     public void signIn(User use, String pass) throws Exception{
         if(use.password(pass)){
             getConn(null);
-            String stmt1 = "INSERT INTO Users VALUES (?, ?, ?, ?, ?, ?)";
+            String stmt1 = "INSERT INTO Users VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement p = conn.prepareStatement(stmt1);
             p.setString(1,use.getKennitala());
-            p.setString(2, use.getPassportId());
-            p.setString(3, use.getFName());
-            p.setString(4, use.getLName());
-            p.setString(5,use.getEmail());
-            p.setString(6, pass);
+            p.setString(2, use.getFName());
+            p.setString(3, use.getLName());
+            p.setString(4,use.getEmail());
+            p.setString(5, pass);
 
             p.executeUpdate();
             p.clearParameters();
@@ -73,14 +74,12 @@ public class UserTable{
         String id = use.getKennitala();
         
         if(isPassword(id, pass)){
-            String passportId = use.getPassportId();
-            String stmt1 = "DELETE FROM Users Where id = ? and passportID = ?";
+            String stmt1 = "DELETE FROM Users Where id = ?";
 
             getConn(null);
             PreparedStatement p = conn.prepareStatement(stmt1);
 
             p.setString(1, id);
-            p.setString(2,passportId);
             
             p.executeUpdate();
             p.clearParameters();
